@@ -9,15 +9,22 @@
 	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 	<meta name="description" content="">
 	<link rel="stylesheet" href="./assets/style.css">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
+	<div class="edit-banner" style="display: none;">
+		<div class="edit-banner-content">
+			<i class="fa-regular fa-pen-to-square"></i>
+			<span>Mode édition</span>
+		</div>
+	</div>
 <header>
 	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
 	<nav>
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li><a href="./login.html" id="auth-link" class="active">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -35,7 +42,13 @@
 		</article>
 	</section>
 	<section id="portfolio">
-		<h2>Mes Projets</h2>
+		<div class="title-container">
+			<h2>Mes Projets</h2>
+			<div class="edit-button" style="display: none;">
+				<i class="fa-regular fa-pen-to-square"></i>
+				<span>modifier</span>
+			</div>
+		</div>
 		<div class="category-menu"></div>
 		<div class="gallery"></div>
 	</section>
@@ -61,6 +74,23 @@
 		</ul>
 	</nav>
 </footer>
-<script src="script.js"></script>
+<!-- Modale -->
+<aside id="modal" class="modal" style="display: none;">
+    <div class="modal-wrapper">
+        <div class="modal-header">
+            <h3>Galerie photo</h3>
+            <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+        <div class="modal-gallery">
+            <!-- La galerie sera générée en JS -->
+        </div>
+        <div class="modal-footer">
+            <hr>
+            <button class="add-photo">Ajouter une photo</button>
+        </div>
+    </div>
+</aside>
+<script type="module" src="js/main.js"></script>
+
 </body>
 </html>

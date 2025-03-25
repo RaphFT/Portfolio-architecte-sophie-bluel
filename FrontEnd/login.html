@@ -18,7 +18,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li>login</li>
+			<li><a href="./login.html" id="auth-link" class="active">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -27,13 +27,13 @@
     <section class="login-section">
         <div class="login-container">
             <h2 class="login-title">Login</h2>
-            <form action="login.js" method="POST">
-                <label for="username">Email</label>
-                <input type="text" id="username" name="username" required>
+            <form id="login-form" action="js/login.js" method="POST">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
     
                 <label for="password">Mot de passe</label>
                 <input type="password" id="password" name="password" required>
-    
+				<div id="error-message" class="error-message"></div>
                 <button type="submit">Se connecter</button>
             </form>
             <a href="#">Mot de passe oublié ?</a>
@@ -47,6 +47,6 @@
 		</ul>
 	</nav>
 </footer>
-<script src="login.js"></script>
+<script type="module" src="js/login.js"></script>
 </body>
 </html>

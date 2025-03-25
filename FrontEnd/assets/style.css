@@ -95,6 +95,16 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav a {
+	text-decoration: none; /* Supprime le soulignement */
+    color: inherit;
+}
+
+nav a.active {
+    font-weight: bold;
+}
+
+
 li:hover {
 	color: #B1663C;
 }
@@ -209,6 +219,168 @@ input[type="submit"]{
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+}
+/* Style pour la bannière d'édition */
+.edit-banner {
+    width: 100vw;
+    height: 59px;
+    background-color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    margin: 0;
+    padding: 0;
+    left: 0;
+    right: 0;
+    box-sizing: border-box;
+    margin-left: calc(-50vw + 50%);
+    margin-right: calc(-50vw + 50%);
 }
 
+.edit-banner-content {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+    padding: 0 20px; /* Ajoute un peu d'espace sur les côtés */
+}
+
+.edit-banner i {
+    font-size: 16px;
+}
+
+
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: baseline; /* Change center à baseline */
+    gap: 30px; /* Réduit l'espace entre les éléments */
+}
+
+.title-container h2 {
+    margin: 0; /* Retire les marges par défaut du h2 */
+}
+
+.edit-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'Work Sans';
+    font-size: 14px;
+    font-weight: 400;
+    color: black;
+    cursor: pointer;
+    padding-top: 2px; /* Ajuste légèrement la position verticale */
+}
+
+.edit-button i {
+    font-size: 15px; /* Ajuste la taille de l'icône */
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1001;
+}
+
+.modal-wrapper {
+    position: relative;
+    width: 630px;
+    background-color: white;
+    border-radius: 10px;
+    padding: 30px;
+}
+
+.modal-header {
+    text-align: center;
+    position: relative;
+    margin-bottom: 50px;
+}
+
+.modal-header h3 {
+    font-family: 'Work Sans';
+    font-size: 26px;
+    font-weight: 400;
+    margin: 0;
+}
+
+.close-modal {
+    position: absolute;
+    right: 0;
+    top: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.modal-gallery {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    padding: 0 70px;
+    margin-bottom: 50px;
+}
+
+.modal-gallery figure {
+    position: relative;
+    margin: 0;
+}
+
+.modal-gallery img {
+    width: 100%;
+    height: 105px;
+    object-fit: cover;
+}
+
+.delete-icon {
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    background: black;
+    border-radius: 2px;
+    width: 17px;
+    height: 17px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.delete-icon i {
+    color: white;
+    font-size: 11px; /* Ajusté pour une meilleure taille */
+}
+
+.modal-footer {
+    text-align: center;
+    padding: 0 70px;
+}
+
+.modal-footer hr {
+    border: none;
+    height: 1px;
+    background-color: #B3B3B3;
+    margin: 30px 0;
+}
+
+.add-photo {
+    font-family: 'Syne';
+    font-weight: 700;
+    color: white;
+    background-color: #1D6154;
+    padding: 10px 49px;
+    border-radius: 60px;
+    border: none;
+    cursor: pointer;
+}
