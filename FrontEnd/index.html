@@ -75,19 +75,58 @@
 	</nav>
 </footer>
 <!-- Modale -->
-<aside id="modal" class="modal" style="display: none;">
-    <div class="modal-wrapper">
+<aside id="modal" class="modal" style="display: none;" aria-hidden="true" role="dialog">
+    <!-- Vue 1 : Galerie photo -->
+    <div class="modal-wrapper modal-gallery-view">
         <div class="modal-header">
             <h3>Galerie photo</h3>
-            <button class="close-modal"><i class="fa-solid fa-xmark"></i></button>
+            <button class="close-modal" aria-label="Fermer la modale">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
         </div>
         <div class="modal-gallery">
             <!-- La galerie sera générée en JS -->
         </div>
         <div class="modal-footer">
             <hr>
-            <button class="add-photo">Ajouter une photo</button>
+            <button class="add-photo-btn">Ajouter une photo</button>
         </div>
+    </div>
+
+    <!-- Vue 2 : Ajout photo -->
+    <div class="modal-wrapper modal-add-view" style="display: none;">
+        <div class="modal-header">
+            <button class="back-button" aria-label="Retour">
+                <i class="fa-solid fa-arrow-left"></i>
+            </button>
+            <h3>Ajout photo</h3>
+            <button class="close-modal" aria-label="Fermer la modale">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+        </div>
+        <form id="add-photo-form" class="add-photo-form">
+            <div class="photo-upload-container">
+                <div class="upload-placeholder">
+                    <i class="fa-regular fa-image"></i>
+                    <label for="photo" class="custom-file-upload">+ Ajouter photo</label>
+                    <input type="file" id="photo" name="image" accept="image/png, image/jpeg" required hidden>
+                    <p class="file-info">jpg, png : 4mo max</p>
+                </div>
+                <img id="preview-image" src="#" alt="Aperçu" style="display: none;">
+            </div>
+            <div class="form-group">
+                <label for="title">Titre</label>
+                <input type="text" name="title" id="title" required>
+            </div>
+            <div class="form-group">
+                <label for="category">Catégorie</label>
+                <select name="category" id="category" required>
+                    <option value="">Sélectionner une catégorie</option>
+                </select>
+            </div>
+            <hr>
+            <button type="submit" class="validate-button" disabled>Valider</button>
+        </form>
     </div>
 </aside>
 <script type="module" src="js/main.js"></script>

@@ -287,7 +287,7 @@ footer nav ul {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.3);
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     z-index: 1001;
@@ -302,34 +302,39 @@ footer nav ul {
 }
 
 .modal-header {
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
     position: relative;
-    margin-bottom: 50px;
 }
 
 .modal-header h3 {
+    width: 100%;
+    text-align: center;
     font-family: 'Work Sans';
     font-size: 26px;
     font-weight: 400;
     margin: 0;
 }
 
-.close-modal {
-    position: absolute;
-    right: 0;
-    top: 0;
+.close-modal, .back-button {
     background: none;
     border: none;
     cursor: pointer;
     font-size: 20px;
 }
 
+.back-button {
+    position: absolute;
+    left: 0;
+}
+
 .modal-gallery {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     gap: 10px;
-    padding: 0 70px;
-    margin-bottom: 50px;
+    margin-bottom: 30px;
 }
 
 .modal-gallery figure {
@@ -359,12 +364,11 @@ footer nav ul {
 
 .delete-icon i {
     color: white;
-    font-size: 11px; /* Ajusté pour une meilleure taille */
+    font-size: 11px;
 }
 
 .modal-footer {
     text-align: center;
-    padding: 0 70px;
 }
 
 .modal-footer hr {
@@ -374,13 +378,102 @@ footer nav ul {
     margin: 30px 0;
 }
 
-.add-photo {
+.add-photo-btn {
+    background: #1D6154;
+    color: white;
+    border-radius: 60px;
+    padding: 10px 49px;
     font-family: 'Syne';
     font-weight: 700;
-    color: white;
-    background-color: #1D6154;
-    padding: 10px 49px;
-    border-radius: 60px;
     border: none;
     cursor: pointer;
+}
+
+/* Styles pour la vue d'ajout de photo */
+.photo-upload-container {
+    width: 100%;
+    height: 169px;
+    background-color: #E8F1F6;
+    border-radius: 3px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+    position: relative; /* Important pour le positionnement de l'image */
+    overflow: hidden; /* Empêche le débordement */
+}
+
+#preview-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Garde les proportions de l'image */
+    background-color: #E8F1F6; /* Garde la même couleur de fond */
+}
+
+.upload-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    z-index: 1; /* S'assure que le placeholder est au-dessus de l'image */
+}
+
+.upload-placeholder i {
+    color: #B9C5CC;
+    font-size: 58px;
+}
+
+.custom-file-upload {
+    background-color: #CBD6DC;
+    color: #306685;
+    padding: 10px 33px;
+    border-radius: 50px;
+    cursor: pointer;
+}
+
+.file-info {
+    color: #444444;
+    font-size: 10px;
+    margin: 0;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    color: #3D3D3D;
+    font-family: 'Work Sans';
+    font-size: 14px;
+}
+
+.form-group input,
+.form-group select {
+    height: 51px;
+    border: none;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+    padding: 0 15px;
+}
+
+.validate-button {
+    width: 237px;
+    height: 36px;
+    background: #A7A7A7;
+    border-radius: 60px;
+    border: none;
+    color: white;
+    font-family: 'Syne';
+    font-weight: 700;
+    margin-top: 30px;
+    cursor: pointer;
+}
+
+.validate-button:not([disabled]) {
+    background: #1D6154;
 }

@@ -1,5 +1,6 @@
 import { apiService } from './services/api.js';
-import { initModal } from './components/modal.js';
+import { ModalManager } from './components/modal.js';
+
 
 // Variable globale pour stocker les works
 let worksData = [];
@@ -26,8 +27,13 @@ async function init() {
             if (editBanner) editBanner.style.display = 'flex';
             if (editButton) editButton.style.display = 'flex';
             
-            // Initialiser la modale
-            initModal(worksData);
+            // Initialiser la modale avec les works
+            const modalManager = new ModalManager(worksData);
+        
+            // Écouter les mises à jour des works
+            document.addEventListener('workUpdated', () => {
+                displayWorks(modalManager.worksData);
+            });
         }
         
         // 2. Création des filtres seulement si non connecté
