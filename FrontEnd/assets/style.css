@@ -135,6 +135,10 @@ li:hover {
 	text-align: center;
 	margin-bottom: 1em;
 }
+footer li {
+    margin-bottom: 20px;
+}
+
 .category-menu {
 	display: flex;
 	justify-content: center;
@@ -294,11 +298,19 @@ footer nav ul {
 }
 
 .modal-wrapper {
-    position: relative;
-    width: 630px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
     background-color: white;
     border-radius: 10px;
-    padding: 30px;
+    width: 630px;
+}
+
+.modal-wrapper > * {
+    width: 67%;
+    margin: 0 auto; /* Centrer horizontalement */
 }
 
 .modal-header {
@@ -315,7 +327,7 @@ footer nav ul {
     font-family: 'Work Sans';
     font-size: 26px;
     font-weight: 400;
-    margin: 0;
+    margin-top: 30px;
 }
 
 .close-modal, .back-button {
@@ -344,7 +356,7 @@ footer nav ul {
 
 .modal-gallery img {
     width: 100%;
-    height: 105px;
+    height: auto;
     object-fit: cover;
 }
 
@@ -376,6 +388,7 @@ footer nav ul {
     height: 1px;
     background-color: #B3B3B3;
     margin: 30px 0;
+
 }
 
 .add-photo-btn {
@@ -461,6 +474,7 @@ footer nav ul {
     padding: 0 15px;
 }
 
+
 .validate-button {
     width: 237px;
     height: 36px;
@@ -470,10 +484,6 @@ footer nav ul {
     color: white;
     font-family: 'Syne';
     font-weight: 700;
-    margin-top: 30px;
     cursor: pointer;
-}
-
-.validate-button:not([disabled]) {
-    background: #1D6154;
+    align-self: center;
 }

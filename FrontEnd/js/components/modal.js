@@ -1,37 +1,40 @@
 export class ModalManager {
+    // Constructeur de la classe, qui initialise les éléments DOM nécessaires
     constructor(worksData) {
-        this.worksData = worksData;
-        this.modal = document.getElementById('modal');
-        this.galleryView = this.modal.querySelector('.modal-gallery-view');
-        this.addView = this.modal.querySelector('.modal-add-view');
-        this.closeButtons = this.modal.querySelectorAll('.close-modal');
-        this.backButton = this.modal.querySelector('.back-button');
-        this.addPhotoBtn = this.modal.querySelector('.add-photo-btn');
-        this.photoForm = document.getElementById('add-photo-form');
+        this.worksData = worksData; // Données des œuvres à afficher dans la galerie
+        this.modal = document.getElementById('modal'); // Le modal qui contient la galerie et le formulaire
+        this.galleryView = this.modal.querySelector('.modal-gallery-view'); // Vue de la galerie dans le modal
+        this.addView = this.modal.querySelector('.modal-add-view'); // Vue pour ajouter une photo
+        this.closeButtons = this.modal.querySelectorAll('.close-modal'); // Boutons pour fermer le modal
+        this.backButton = this.modal.querySelector('.back-button'); // Bouton pour revenir à la galerie
+        this.addPhotoBtn = this.modal.querySelector('.add-photo-btn'); // Bouton pour ajouter une photo
+        this.photoForm = document.getElementById('add-photo-form'); // Formulaire pour ajouter une photo
         
+        // Initialisation des écouteurs d'événements et autres fonctionnalités
         this.initializeEventListeners();
-        this.loadCategories();
-        this.initializePhotoUpload();
+        this.loadCategories(); // Charge les catégories de photos
+        this.initializePhotoUpload(); // Gère le téléchargement d'images
     }
 
+    // Initialisation des écouteurs d'événements pour gérer l'ouverture, la fermeture, et la navigation dans le modal
     initializeEventListeners() {
-        // Gestion de l'ouverture/fermeture
         document.querySelector('.edit-button').addEventListener('click', () => this.openModal());
         this.closeButtons.forEach(button => {
             button.addEventListener('click', () => this.closeModal());
         });
         this.modal.addEventListener('click', (e) => {
-            if (e.target === this.modal) this.closeModal();
+            if (e.target === this.modal) this.closeModal(); // Ferme le modal si on clique en dehors de celui-ci
         });
 
-        // Navigation
+        // Gestion de la navigation entre les vues
         this.addPhotoBtn.addEventListener('click', () => this.showAddView());
         this.backButton.addEventListener('click', () => this.showGalleryView());
 
-        // Gestion du formulaire
+        // Gestion du formulaire pour ajouter une photo
         this.initializeFormHandlers();
     }
 
+    // Initialisation du téléchargement de photo et de la prévisualisation
     initializePhotoUpload() {
         const photoInput = document.getElementById('photo');
         const previewImage = document.getElementById('preview-image');
@@ -41,26 +44,25 @@ export class ModalManager {
         photoInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             
-            // Vérification du type de fichier
+            // Vérification du type de fichier et de sa taille
             if (!file.type.match('image/(jpeg|png)')) {
                 alert('Le fichier doit être une image (JPG ou PNG)');
                 return;
             }
 
-            // Vérification de la taille (4mo max)
             if (file.size > 4 * 1024 * 1024) {
                 alert('L\'image ne doit pas dépasser 4Mo');
                 return;
             }
 
-            // Lecture et prévisualisation du fichier
+            // Lecture et affichage de l'image en prévisualisation
             const reader = new FileReader();
             
             reader.onload = (e) => {
                 previewImage.src = e.target.result;
                 previewImage.style.display = 'block';
                 uploadPlaceholder.style.display = 'none';
-                this.validateForm();
+                this.validateForm(); // Valide le formulaire si l'image est correctement chargée
             };
 
             reader.onerror = () => {
@@ -73,28 +75,33 @@ export class ModalManager {
         });
     }
 
+    // Ouvre le modal et affiche la galerie
     openModal() {
         this.modal.style.display = 'flex';
         this.showGalleryView();
         this.updateGallery();
     }
 
+    // Ferme le modal
     closeModal() {
         this.modal.style.display = 'none';
         this.resetPhotoForm();
     }
 
+    // Affiche la vue galerie et met à jour les éléments de la galerie
     showGalleryView() {
         this.galleryView.style.display = 'block';
         this.addView.style.display = 'none';
         this.updateGallery();
     }
 
+    // Affiche la vue d'ajout de photo
     showAddView() {
         this.galleryView.style.display = 'none';
         this.addView.style.display = 'block';
     }
 
+    // Met à jour la galerie en fonction des données disponibles
     updateGallery() {
         const modalGallery = this.modal.querySelector('.modal-gallery');
         modalGallery.innerHTML = '';
@@ -120,13 +127,13 @@ export class ModalManager {
                         if (index > -1) {
                             this.worksData.splice(index, 1);
                         }
-                        // Mettre à jour la galerie principale
+                        // Met à jour la galerie principale
                         const mainGallery = document.querySelector('.gallery');
                         if (mainGallery) {
                             const mainFigure = mainGallery.querySelector(`figure img[src="${work.imageUrl}"]`).parentNode;
                             mainFigure.remove();
                         }
-                        // Déclencher l'événement de mise à jour
+                        // Déclenche un événement pour notifier la mise à jour
                         document.dispatchEvent(new CustomEvent('workUpdated'));
                     } else {
                         alert('Erreur lors de la suppression');
@@ -140,6 +147,7 @@ export class ModalManager {
         });
     }
 
+    // Fonction pour supprimer une œuvre via une requête API
     async deleteWork(workId) {
         try {
             const token = window.sessionStorage.getItem('token');
@@ -161,6 +169,7 @@ export class ModalManager {
         }
     }
 
+    // Charge les catégories d'images depuis une API et met à jour le sélecteur de catégorie
     async loadCategories() {
         try {
             const response = await fetch('http://localhost:5678/api/categories');
@@ -178,6 +187,7 @@ export class ModalManager {
         }
     }
 
+    // Initialisation des gestionnaires d'événements pour le formulaire d'ajout d'image
     initializeFormHandlers() {
         const photoInput = document.getElementById('photo');
         const titleInput = document.getElementById('title');
@@ -186,7 +196,7 @@ export class ModalManager {
         const previewImage = document.getElementById('preview-image');
         const uploadPlaceholder = document.querySelector('.upload-placeholder');
 
-        // Prévisualisation de l'image
+        // Gestion de la prévisualisation de l'image
         photoInput.addEventListener('change', (e) => {
             const file = e.target.files[0];
             if (file) {
@@ -201,18 +211,19 @@ export class ModalManager {
             }
         });
 
-        // Validation du formulaire
+        // Validation du formulaire lorsque les champs sont modifiés
         [titleInput, categoryInput].forEach(input => {
             input.addEventListener('input', () => this.validateForm());
         });
 
-        // Soumission du formulaire
+        // Soumission du formulaire d'ajout de photo
         this.photoForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             await this.submitForm();
         });
     }
 
+    // Valide le formulaire en s'assurant que tous les champs sont remplis avant l'envoi
     validateForm() {
         const form = this.photoForm;
         const title = form.querySelector('#title').value;
@@ -220,12 +231,12 @@ export class ModalManager {
         const photo = form.querySelector('#photo').files[0];
         const submitButton = form.querySelector('.validate-button');
 
-        // Vérifier si tous les champs requis sont remplis
-        const isValid = title && category && photo;
-        submitButton.disabled = !isValid;
-        submitButton.style.backgroundColor = isValid ? '#1D6154' : '#A7A7A7';
+        const isValid = title && category && photo; // Vérification de la validité des champs
+        submitButton.disabled = !isValid; // Active ou désactive le bouton de validation
+        submitButton.style.backgroundColor = isValid ? '#1D6154' : '#A7A7A7'; // Changement de couleur
     }
 
+    // Envoie les données du formulaire pour ajouter une nouvelle photo via une requête API
     async submitForm() {
         const formData = new FormData(this.photoForm);
         
@@ -245,8 +256,8 @@ export class ModalManager {
             const newWork = await response.json();
             this.worksData.push(newWork);
             this.showGalleryView();
-            this.resetPhotoForm();
-            // Mettre à jour la galerie principale
+            this.resetPhotoForm(); // Réinitialisation du formulaire
+            // Met à jour la galerie principale
             document.dispatchEvent(new CustomEvent('workUpdated'));
         } catch (error) {
             console.error('Erreur:', error);
@@ -254,6 +265,7 @@ export class ModalManager {
         }
     }
 
+    // Réinitialisation du formulaire d'ajout de photo
     resetPhotoForm() {
         this.photoForm.reset();
         const previewImage = document.getElementById('preview-image');
