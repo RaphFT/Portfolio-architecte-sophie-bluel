@@ -1,116 +1,80 @@
-// components/gallery.js
-import { apiService } from '../services/api.js';
+/**
+ * Affichage des works dans la galerie
+ */
+export const displayWorks = (works) => {
+    const gallery = document.querySelector(".gallery");
+    if (!gallery) return;
 
-export class Gallery {
-    constructor(container) {
-        this.container = container;
-        this.works = [];
-        this.filters = document.querySelector('.filters');
-    }
-
-    async init() {
-        try {
-            // Chargement des works
-            await this.loadWorks();
-            // Mise en place des filtres
-            await this.setupFilters();
-            // Affichage initial de tous les works
-            this.displayWorks(this.works);
-        } catch (error) {
-            console.error('Erreur d\'initialisation de la galerie:', error);
-        }
-    }
-
-    async loadWorks() {
-        try {
-            this.works = await apiService.getWorks();
-        } catch (error) {
-            console.error('Erreur chargement works:', error);
-            this.works = [];
-        }
-    }
-
-    async setupFilters() {
-        try {
-            const categories = await apiService.getCategories();
-            
-            // Création du conteneur de filtres s'il n'existe pas
-            if (!this.filters) {
-                this.filters = document.createElement('div');
-                this.filters.className = 'filters';
-                this.container.parentNode.insertBefore(this.filters, this.container);
-            }
-
-            // Bouton "Tous"
-            this.createFilterButton('Tous', null);
-
-            // Boutons pour chaque catégorie
-            categories.forEach(category => {
-                this.createFilterButton(category.name, category.id);
-            });
-        } catch (error) {
-            console.error('Erreur chargement catégories:', error);
-        }
-    }
-
-    createFilterButton(name, categoryId) {
-        const button = document.createElement('button');
-        button.textContent = name;
-        button.className = 'filter-btn';
-        if (categoryId === null) button.classList.add('active');
-
-        button.addEventListener('click', () => {
-            // Mise à jour du filtre actif
-            this.filters.querySelectorAll('.filter-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            button.classList.add('active');
-
-            // Filtrage des works
-            this.filterWorks(categoryId);
-        });
-
-        this.filters.appendChild(button);
-    }
-
-    filterWorks(categoryId) {
-        const filteredWorks = categoryId === null 
-            ? this.works 
-            : this.works.filter(work => work.categoryId === categoryId);
-        
-        this.displayWorks(filteredWorks);
-    }
-
-    displayWorks(worksToDisplay) {
-        // Vider la galerie
-        this.container.textContent = '';
-
-        // Créer et ajouter chaque work
-        worksToDisplay.forEach(work => {
-            const figure = this.createWorkElement(work);
-            this.container.appendChild(figure);
-        });
-    }
-
-    createWorkElement(work) {
-        const figure = document.createElement('figure');
-        
-        const img = document.createElement('img');
+    gallery.textContent = "";
+    works.forEach(work => {
+        const figure = document.createElement("figure");
+        const img = document.createElement("img");
         img.src = work.imageUrl;
         img.alt = work.title;
-        
-        const figcaption = document.createElement('figcaption');
+        const figcaption = document.createElement("figcaption");
         figcaption.textContent = work.title;
-        
         figure.appendChild(img);
         figure.appendChild(figcaption);
-        
-        return figure;
-    }
+        gallery.appendChild(figure);
+    });
+};
 
-    // Méthode pour rafraîchir la galerie (utile pour la modale plus tard)
-    async refreshWorks() {
-        await this.loadWorks();
-        this.displayWorks(this.works);
+/**
+ * Création des boutons de filtres
+ */
+export const createFilters = (worksData) => {
+    const menuContainer = document.querySelector(".category-menu");
+    if (!menuContainer) return;
+
+    menuContainer.textContent = "";
+    const categories = [...new Set(worksData.map(work => work.category.name))];
+    console.log("Catégories trouvées:", categories);
+
+    const allButton = document.createElement("button");
+    allButton.textContent = "Tous";
+    allButton.classList.add("active");
+    allButton.addEventListener("click", (event) => {
+        updateActiveButton(event.target);
+        displayWorks(worksData);
+    });
+    menuContainer.appendChild(allButton);
+
+    categories.forEach(category => {
+        const button = document.createElement("button");
+        button.textContent = category;
+        button.addEventListener("click", (event) => {
+            updateActiveButton(event.target);
+            filterWorksByCategory(category, worksData);
+        });
+        menuContainer.appendChild(button);
+    });
+};
+
+/**
+ * Mise à jour du bouton actif
+ */
+const updateActiveButton = (clickedButton) => {
+    document.querySelectorAll(".category-menu button").forEach(button => {
+        button.classList.remove("active");
+    });
+    clickedButton.classList.add("active");
+};
+
+/**
+ * Filtrage des works par catégorie
+ */
+const filterWorksByCategory = (category, worksData) => {
+    const filteredWorks = worksData.filter(work => work.category.name === category);
+    console.log(`Works filtrés pour ${category}:`, filteredWorks);
+    displayWorks(filteredWorks);
+};
+
+/**
+ * Gestion de l'affichage de la galerie en mode édition
+ */
+export const setupGalleryEdition = (isConnected) => {
+    const menuContainer = document.querySelector(".category-menu");
+    if (menuContainer) {
+        menuContainer.style.display = isConnected ? "none" : "flex";
     }
-}
+};

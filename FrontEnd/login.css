@@ -54,3 +54,8 @@ a {
     align-items: center;
     color: black;
 }
+
+#error-message {
+    color: red;
+    font-weight: bold;
+}

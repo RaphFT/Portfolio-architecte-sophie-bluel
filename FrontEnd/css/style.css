@@ -1,0 +1,23 @@
+/* Styles pour la bannière d'édition */
+#edit-banner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 16px;
+    z-index: 1000;
+}
+
+/* Styles pour le bouton d'édition */
+#edit-button {
+    margin-left: 30px;
+    cursor: pointer;
+    color: black;
+    font-size: 14px;
+    font-weight: bold;
+    font-family: "Work Sans";
+} 
