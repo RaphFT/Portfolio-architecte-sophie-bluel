@@ -52,11 +52,14 @@ body {
 	margin:auto;
 	font-family: 'Work Sans' ;
 	font-size: 14px;
+    background-color: #FFFEF8;
 }
+
+
 header {
 	display: flex;
 	justify-content: space-between;
-	margin: 50px 0
+	margin: 50px 0;
 }
 section {
 	margin: 50px 0
@@ -137,6 +140,7 @@ li:hover {
 }
 footer li {
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 
 .category-menu {
@@ -148,7 +152,7 @@ footer li {
 }
 
 .category-menu button {
-	background-color: white;
+	background-color: #FFFEF8;;
 	color: #1D6154;
 	border:1px solid #1D6154;
 	border-radius: 60px;
@@ -159,7 +163,8 @@ footer li {
 	padding-right: 25px;
 }
 
-.category-menu button:hover {
+.category-menu button:hover,
+.category-menu button.active {
 	background-color: #1D6154;
 	color: white;
 }
@@ -218,6 +223,9 @@ input[type="submit"]{
 	width: 180px;
 	text-align: center;
 	border-radius: 60px ;
+}
+footer {
+    background-color: white;
 }
 
 footer nav ul {
@@ -298,6 +306,7 @@ footer nav ul {
 }
 
 .modal-wrapper {
+    position: relative; /* nécessaire pour positionner les boutons */
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -310,37 +319,43 @@ footer nav ul {
 
 .modal-wrapper > * {
     width: 67%;
-    margin: 0 auto; /* Centrer horizontalement */
+    margin: 0 auto;
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     margin-bottom: 30px;
     position: relative;
+    text-align: center;
 }
 
 .modal-header h3 {
-    width: 100%;
-    text-align: center;
     font-family: 'Work Sans';
     font-size: 26px;
     font-weight: 400;
-    margin-top: 30px;
+    margin: 30px 0 0 0;
 }
 
-.close-modal, .back-button {
+.close-modal,
+.back-button {
+    position: absolute;
+    top: 30px; /* aligne avec le titre */
     background: none;
     border: none;
     cursor: pointer;
-    font-size: 20px;
+    font-size: 24px;
+    width: 30px;
+    height: 30px;
+    color: #333;
 }
 
 .back-button {
-    position: absolute;
-    left: 0;
+    left: 30px; /* distance par rapport au bord gauche de la modale */
 }
+
+.close-modal {
+    right: 30px; /* distance par rapport au bord droit de la modale */
+}
+
 
 .modal-gallery {
     display: grid;

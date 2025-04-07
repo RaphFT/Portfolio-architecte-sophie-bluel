@@ -15,7 +15,6 @@ async function init() {
 
         // 1. Récupération des works
         const worksData = await apiService.getWorks();
-        console.log("Works récupérés:", worksData);
         
         // Configuration de la galerie selon le mode (connecté ou non)
         setupGalleryEdition(isConnected);

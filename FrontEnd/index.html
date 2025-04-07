@@ -24,7 +24,7 @@
 		<ul>
 			<li>projets</li>
 			<li>contact</li>
-			<li><a href="./login.html" id="auth-link" class="active">login</a></li>
+			<li><a href="./login.html" id="auth-link">login</a></li>
 			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 		</ul>
 	</nav>
@@ -78,11 +78,11 @@
 <aside id="modal" class="modal" style="display: none;" aria-hidden="true" role="dialog">
     <!-- Vue 1 : Galerie photo -->
     <div class="modal-wrapper modal-gallery-view">
+		<button class="close-modal" aria-label="Fermer la modale">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
         <div class="modal-header">
             <h3>Galerie photo</h3>
-            <button class="close-modal" aria-label="Fermer la modale">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
         </div>
         <div class="modal-gallery">
             <!-- La galerie est générée en JS -->
@@ -95,14 +95,14 @@
 
     <!-- Vue 2 : Ajout photo -->
     <div class="modal-wrapper modal-add-view" style="display: none;">
-        <div class="modal-header">
-            <button class="back-button" aria-label="Retour">
-                <i class="fa-solid fa-arrow-left"></i>
-            </button>
+		<button class="back-button" aria-label="Retour">
+			<i class="fa-solid fa-arrow-left"></i>
+		</button>
+		<button class="close-modal" aria-label="Fermer la modale">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+		<div class="modal-header">
             <h3>Ajout photo</h3>
-            <button class="close-modal" aria-label="Fermer la modale">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
         </div>
         <form id="add-photo-form" class="add-photo-form">
             <div class="photo-upload-container">
